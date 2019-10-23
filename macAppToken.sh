@@ -13,7 +13,7 @@ oldToken="999"
 
 # specify the endpoint and xml node name for applications
 endpoint="macapplications"
-xmlEndpoint="mac_application>"
+xmlEndpoint="mac_application"
 
 # get all id's and names from the endpoints
 allApps=$(curl -H "Content-Type: application/xml" -ksu "$apiUser":"$apiPass" "$jssURL/JSSResource/$endpoint" -X GET)
