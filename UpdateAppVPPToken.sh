@@ -56,8 +56,6 @@ do
                 </vpp>
             </${xmlEndpoint}>" --output /dev/null)
         	echo "******* updating ${allIDs[index]}"
-        	echo "checking ${allIDs[index]}"
-
 		# report and gather failed updates
 		if [ "$update" != "201" ]; then
 		    echo "failed $update"
