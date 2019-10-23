@@ -55,15 +55,15 @@ do
                     <vpp_admin_account_id>$newToken</vpp_admin_account_id>
                 </vpp>
             </${xmlEndpoint}>" --output /dev/null)
-        echo "******* updating ${allIDs[index]}"
-        echo "checking ${allIDs[index]}"
+        	echo "******* updating ${allIDs[index]}"
+        	echo "checking ${allIDs[index]}"
 
-        # report and gather failed updates
-        if [ "$update" != "201" ]; then
-            echo "failed $update"
-            failedName+="${allNames[index]}, "
-            failedID+="${allIDs[index]}, "
-        fi
+		# report and gather failed updates
+		if [ "$update" != "201" ]; then
+		    echo "failed $update"
+		    failedName+="${allNames[index]}, "
+		    failedID+="${allIDs[index]}, "
+		fi
 	fi
 done
 
