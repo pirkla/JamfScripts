@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1">
+    <dict>
+        <key>PayloadContent</key>
+        <array>
+            <dict>
+                <key>PayloadDescription</key>
+                <string>Configure TCC Settings</string>
+                <key>PayloadDisplayName</key>
+                <string>Enable Screensharing Agent</string>
+                <key>PayloadIdentifier</key>
+                <string>3A6CA7B1-D0B8-4550-A971-2D13005768D8</string>
+                <key>PayloadType</key>
+                <string>com.apple.TCC.configuration-profile-policy</string>
+                <key>PayloadUUID</key>
+                <string>3A6CA7B1-D0B8-4550-A971-2D13005768D8</string>
+                <key>PayloadVersion</key>
+                <integer>1</integer>
+                <key>Services</key>
+                <dict>
+                    <key>PostEvent</key>
+                    <array>
+                        <dict>
+                            <key>Identifier</key>
+                            <string>com.apple.screensharing.agent</string>
+                            <key>CodeRequirement</key>
+                            <string>identifier "com.apple.screensharing.agent" and anchor apple</string>
+                            <key>IdentifierType</key>
+                            <string>bundleID</string>
+                            <key>StaticCode</key>
+                            <integer>0</integer>
+                            <key>Allowed</key>
+                            <integer>1</integer>
+                        </dict>
+                    </array>
+                </dict>
+            </dict>
+        </array>
+    </dict>
+</plist>
