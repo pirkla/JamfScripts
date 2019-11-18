@@ -22,6 +22,7 @@ adminUser="$4"
 
 # Enable remote management via kickstart
 # NOTE: for full access the screensharing agent must be whitelisted via a PPPC payload as per: https://support.apple.com/en-us/HT209161
+# The .mobileconfig file here can be upload to Jamf and deployed to devices to whitelist the screensharing agent: https://github.com/pirkla/JamfScripts/blob/master/allowScreensharing.mobileconfig
 /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -configure -allowAccessFor -specifiedUsers
 /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -configure -users $adminUser -access -on -privs -all
 /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -configure -activate -restart -console
