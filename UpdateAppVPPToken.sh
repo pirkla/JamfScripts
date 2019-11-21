@@ -8,6 +8,7 @@
 ################ USER DEFINED VARIABLES START #############################
 
 # Enter credentials and the token id's. If hosting locally use the format https://your.url:8443
+# Special characters in the user or password may cause issues with parsing the script
 jssURL="https://yoururl.jamfcloud.com"
 apiUser="admin"
 apiPass="password"
