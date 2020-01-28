@@ -13,7 +13,7 @@ apiUser="admin"
 # apiPass="password"
 read -s -p "Password: " apiPass
 
-# set to "true" to turn use managed distribution, set to "false" to turn off managed distribution
+# set to "true" to use managed distribution, set to "false" to turn off managed distribution
 assignVPPContent="true"
 
 # set newToken to -1 to assign to no token, otherwise set to the token's id
