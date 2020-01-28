@@ -57,5 +57,3 @@ if [ "$failedID" != "" ]; then
 else
     echo "All apps have been assigned"
 fi
-
-# save failed updates with url's
