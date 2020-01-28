@@ -31,8 +31,7 @@ xmlEndpoint="mobile_device_application"
 # get all id's and names from the endpoints
 allApps=$(curl -H "Content-Type: application/xml" -ksu "$apiUser":"$apiPass" "$jssURL/JSSResource/$endpoint" -X GET)
 
-ids=$( echo "$allApps" | xpath "//id[not(ancestor::site)]" 2> /dev/null | sed s/'<id>'//g | sed s/'<\/id>'/','/g)
-IFS=', ' read -r -a allIDs <<< ${ids}
+allIDs=$( echo "$allApps" | xpath "//id[not(ancestor::site)]" 2> /dev/null | sed s/'<id>'//g | sed s/'<\/id>'/' '/g)
 
 appNames=$( echo "$allApps" | xmllint --xpath '//name' - | sed s/'<name>'//g | sed s/'<\/name>'/','/g)
 IFS=',' read -r -a allNames <<< "${appNames}"
@@ -61,7 +60,7 @@ do
 		if [ "$update" != "201" ]; then
 		    echo "failed $update"
 		    failedName+="${allNames[index]}, "
-		    failedID+="${allIDs[index]}, "
+		    failedID+="${allIDs[index]} "
 		fi
 	fi
 done
