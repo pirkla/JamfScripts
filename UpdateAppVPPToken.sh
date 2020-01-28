@@ -11,7 +11,8 @@
 # Special characters in the user or password may cause issues with parsing the script
 jssURL="https://yoururl.jamfcloud.com"
 apiUser="admin"
-apiPass="password"
+# apiPass="password"
+read -s -p "Password: " apiPass
 newToken="999"
 oldToken="999"
 
