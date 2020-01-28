@@ -4,6 +4,8 @@
 # Migrate all apps assigned to a VPP account in Jamf Pro to another VPP account.
 # If any apps do not have licenses on the new VPP account they will not be migrated, and will need to be handled manually.
 
+# see https://github.com/pirkla/JamfScripts/blob/master/UpdateVPPByID.sh to update managed distribution and vpp tokens by id
+
 
 ################ USER DEFINED VARIABLES START #############################
 
