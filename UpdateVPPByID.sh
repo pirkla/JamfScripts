@@ -34,11 +34,13 @@ xmlEndpoint="mobile_device_application"
 
 ################ USER DEFINED VARIABLES END #############################
 
+# base64 encode credentials
+auth=$( printf "$apiUser:$apiPass" | base64 )
 
 failedID=""
 for id in ${ids[@]}; do
     echo "updating $id"
-    update=$(curl -H "Accept : text/xml" -H "Content-Type: text/xml" -ksu "$apiUser":"$apiPass" "$jssURL/JSSResource/$endpoint/id/$id" -w '%{http_code}' -X PUT -d  "<${xmlEndpoint}>
+    update=$(curl -H "Accept : text/xml" -H "Content-Type: text/xml" -H "authorization: Basic $auth" -ks "$jssURL/JSSResource/$endpoint/id/$id" -w '%{http_code}' -X PUT -d  "<${xmlEndpoint}>
         <vpp>
             <assign_vpp_device_based_licenses>$assignVPPContent</assign_vpp_device_based_licenses>
             <vpp_admin_account_id>$newToken</vpp_admin_account_id>
