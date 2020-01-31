@@ -31,8 +31,20 @@ xmlEndpoint="mobile_device_application"
 ################ USER DEFINED VARIABLES END #############################
 
 
+# base64 encode user/password since curl can't handle special characters
+auth=$( printf "$apiUser:$apiPass" | base64 )
+
 # get all id's and names from the endpoints
-allApps=$(curl -H "Content-Type: application/xml" -ksu "$apiUser":"$apiPass" "$jssURL/JSSResource/$endpoint" -X GET)
+appResp=$(curl -w "%{http_code}" -H "Content-Type: application/xml" -H "authorization: Basic $auth" -ks "$jssURL/JSSResource/$endpoint" -X GET )
+status=${appResp: -3}
+allApps=$( echo $appResp | sed 's/...$//')
+
+if [[ "$status" != "200" ]]; then
+    echo "There was a problem: $status"
+    exit 1
+fi
+
+
 
 ids=$( echo "$allApps" | xpath "//id[not(ancestor::site)]" 2> /dev/null | sed s/'<id>'//g | sed s/'<\/id>'/' '/g)
 IFS=', ' read -r -a allIDs <<< ${ids}
@@ -50,11 +62,11 @@ do
     echo "checking ${allIDs[index]}"
 
     # get the VPP xml subset
-    token=$(curl -H "Accept : text/xml" -H "Content-Type: text/xml" -ksu "$apiUser":"$apiPass" "$jssURL/JSSResource/$endpoint/id/${allIDs[index]}/subset/vpp" -X GET | xpath //vpp/vpp_admin_account_id/text\(\) 2> /dev/null)
+    token=$(curl -H "Accept : text/xml" -H "Content-Type: text/xml" -H "authorization: Basic $auth" -ks "$jssURL/JSSResource/$endpoint/id/${allIDs[index]}/subset/vpp" -X GET | xpath //vpp/vpp_admin_account_id/text\(\) 2> /dev/null)
 
     # if the old token is being used then switch tokens
 	if [ "$token" == "$oldToken" ]; then
-		    update=$(curl -H "Accept : text/xml" -H "Content-Type: text/xml" -ksu "$apiUser":"$apiPass" "$jssURL/JSSResource/$endpoint/id/${allIDs[index]}" -w '%{http_code}' -X PUT -d  "<${xmlEndpoint}>
+		    update=$(curl -H "Accept : text/xml" -H "Content-Type: text/xml" -H "authorization: Basic $auth" -ks "$jssURL/JSSResource/$endpoint/id/${allIDs[index]}" -w '%{http_code}' -X PUT -d  "<${xmlEndpoint}>
                 <vpp>
                     <vpp_admin_account_id>$newToken</vpp_admin_account_id>
                 </vpp>
