@@ -62,7 +62,15 @@ do
     echo "checking ${allIDs[index]}"
 
     # get the VPP xml subset
-    token=$(curl -H "Accept : text/xml" -H "Content-Type: text/xml" -H "authorization: Basic $auth" -ks "$jssURL/JSSResource/$endpoint/id/${allIDs[index]}/subset/vpp" -X GET | xpath //vpp/vpp_admin_account_id/text\(\) 2> /dev/null)
+
+    tokenResp=$(curl -w "%{http_code}" -H "Accept : text/xml" -H "Content-Type: text/xml" -H "authorization: Basic $auth" -ks "$jssURL/JSSResource/$endpoint/id/${allIDs[index]}/subset/vpp" -X GET )
+    tokenStatus=${tokenResp: -3}
+
+    if [[ "$tokenStatus" != "200" ]]; then
+        echo "there was an error retrieving the token: $tokenStatus"
+    fi
+
+    token=$( echo $tokenResp | sed 's/...$//' | xpath //vpp/vpp_admin_account_id/text\(\) 2> /dev/null)
 
     # if the old token is being used then switch tokens
 	if [ "$token" == "$oldToken" ]; then
