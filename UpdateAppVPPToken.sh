@@ -35,7 +35,7 @@ xmlEndpoint="mobile_device_application"
 auth=$( printf "$apiUser:$apiPass" | base64 )
 
 # get all id's and names from the endpoints
-appResp=$(curl -w "%{http_code}" -H "Content-Type: application/xml" -H "authorization: Basic $auth" -ks "$jssURL/JSSResource/$endpoint" -X GET )
+appResp=$(curl -w "%{http_code}" -H "content-type: application/xml" -H "authorization: Basic $auth" -ks "$jssURL/JSSResource/$endpoint" -X GET )
 status=${appResp: -3}
 allApps=$( echo $appResp | sed 's/...$//')
 
@@ -63,7 +63,7 @@ do
 
     # get the VPP xml subset
 
-    tokenResp=$(curl -w "%{http_code}" -H "Accept : text/xml" -H "Content-Type: text/xml" -H "authorization: Basic $auth" -ks "$jssURL/JSSResource/$endpoint/id/${allIDs[index]}/subset/vpp" -X GET )
+    tokenResp=$(curl -w "%{http_code}" -H "accept: text/xml" -H "content-type: text/xml" -H "authorization: Basic $auth" -ks "$jssURL/JSSResource/$endpoint/id/${allIDs[index]}/subset/vpp" -X GET )
     tokenStatus=${tokenResp: -3}
 
     if [[ "$tokenStatus" != "200" ]]; then
@@ -74,7 +74,7 @@ do
 
     # if the old token is being used then switch tokens
 	if [ "$token" == "$oldToken" ]; then
-		    update=$(curl -H "Accept : text/xml" -H "Content-Type: text/xml" -H "authorization: Basic $auth" -ks "$jssURL/JSSResource/$endpoint/id/${allIDs[index]}" -w '%{http_code}' -X PUT -d  "<${xmlEndpoint}>
+		    update=$(curl -H "accept: text/xml" -H "content-type: text/xml" -H "authorization: Basic $auth" -ks "$jssURL/JSSResource/$endpoint/id/${allIDs[index]}" -w '%{http_code}' -X PUT -d  "<${xmlEndpoint}>
                 <vpp>
                     <vpp_admin_account_id>$newToken</vpp_admin_account_id>
                 </vpp>
