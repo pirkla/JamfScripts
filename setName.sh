@@ -4,7 +4,6 @@
 
 prepend=$4
 append=$5
-callEvent=$6
 
 serial=$(system_profiler SPHardwareDataType | awk '/Serial/ {print $4}')
 compName="$prepend""$serial""$append"
